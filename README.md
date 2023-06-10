@@ -40,3 +40,33 @@ Launch the exploration nodes by executing the following command:
 ```bash
 roslaunch hop_project explor.launch
 ```
+## Troubleshooting
+Sometimes, during the exploration process, the arm may hit a wall and get stuck. To resolve this issue, follow these steps:
+
+1) If the arm is open, run the following command to close it:
+
+```bash
+rostopic pub /turtlebot/swiftpro/joint_velocity_controller/command std_msgs/Float64MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data:
+ [0 , 0, -0.5, 0]"
+ ```
+
+2) Once the arm is closed, turn off the joint speed by running the following command:
+   
+ ```bash
+rostopic pub /turtlebot/swiftpro/joint_velocity_controller/command std_msgs/Float64MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data:
+ [0 , 0, 0, 0]"
+ ```
+
+ These steps should help resolve the issue for the arm to not gets stuck in a wall while exploring.
